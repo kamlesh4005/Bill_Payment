@@ -1,0 +1,63 @@
+var UserApi = require('../data/UserApi');
+var express = require('express');
+var router = express.Router();
+var bcrypt = require('bcryptjs');
+
+
+router.post('/create', function(req, res){
+    var userData = {};
+    userData.firstName = req.body.firstName;
+    userData.lastName =  req.body.lastName;
+    userData.password = bcrypt.hashSync(req.body.password, 10);
+    userData.mobileNumber = req.body.mobileNumber;
+    userData.email = req.body.email;
+    userData.role = "user";
+    
+    var messageObj = {};
+    messageObj.message='';
+    console.log('method is called');
+    UserApi.saveUser(userData,messageObj, function(err) {
+        if(err)
+            console.log(err);
+        console.log("from nodejs");
+        //console.log(message);
+        res.json(messageObj.message);
+    });
+});
+    
+
+
+router.post('/signin', function(req, res){
+    var userData = {};
+    userData.firstName = req.body.firstName;
+    userData.lastName =  req.body.lastName;
+    userData.password = req.body.password;
+    userData.mobileNumber = req.body.mobileNumber;
+    userData.email = req.body.email;
+    var data={};
+    UserApi.getUserByEmail(userData, data, function(err){
+        if(err){
+            console.log(err);
+        } else{
+            /*var data={}; 
+            if(userData != null){
+                console.log("----");
+                console.log(userData);
+                var token = jwt.sign({user: userData}, 'secret', {expiresIn: 7200});
+                data.token = token;
+                    //userId: user._id,
+                data.userId= userData.email;
+                console.log(userData.role);
+                console.log(userData.email);                
+                data.userRole= userData.role;                                    
+            } else {
+                data = null;
+            }*/
+
+            //console.log(data);
+            res.json(data);
+        }
+    });
+}); 
+
+module.exports = router;

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title>MakeMyPayment</title>
+    {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> --}}
+    <meta charset="UTF-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-metro.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+    <style>
+    body {font-family: "Lato", sans-serif}
+    .mySlides {display: none}
+    .w3-tangerine {
+       font-family: "Tangerine", serif;
+    }
+    .w3-lobster {
+    font-family: "Lobster", serif;
+    }
+    </style>
+
+
+
+
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else { 
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+    
+    </script>
+ 
+    <!--<script type="text/javascript">
+        $(document).ready(function() {
+            $(".dropdown-button").dropdown();
+
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year,
+                today: 'Today',
+                clear: 'Clear',
+                close: 'Ok',
+                closeOnSelect: false // Close upon selecting a date,
+            });
+            //Copy settings and initialization tooltipped  --}}
+
+        });
+    </script>-->
+</head>
+<body>
+<my-app>
+    <div class="w3-container w3-display-middle">
+      <p><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
+    </div>
+    
+    
+</my-app>
+<!-- Footer -->
+
+
+
+<script src="/js/app/bundle.js"></script>
+<!-- Compiled and minified JavaScript -->
+</body>
+</html>

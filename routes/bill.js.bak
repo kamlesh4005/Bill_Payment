@@ -1,0 +1,143 @@
+var BillApi = require('../data/BillApi');
+var BillerApi = require('../data/BillerApi');
+var UserApi = require('../data/UserApi');
+var express = require('express');
+var router = express.Router();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+
+// putting authentication part ...
+router.use('/', function (req, res, next) {
+  jwt.verify(req.query.token, 'secret', function (err, decoded) {
+      console.log(err);
+      console.log("00000000");
+      console.log(decoded);
+      if (err) {
+          return res.status(401).json({
+              title: 'Not Authenticated',
+              error: err
+          });
+      }
+      if(decoded.user.role != "admin" && decoded.user.role != "user"){
+          return res.status(401).json({
+            title: 'Not Authenticated',
+            error: err
+        });
+      }
+      next();
+  })
+});
+
+router.get('/', function(req, res) {
+  BillApi.getAllBillsForAdmin(function(err, items) {
+	  if(err){
+		  console.log(err);
+	  }else{
+		res.json(items);
+	  }
+    });
+});
+
+router.get('/get/:id', function(req, res) {
+  var billData;
+  BillApi.getBillById(req.params.id, billData, function(err, billData) {
+	  if (err)
+	  {
+		  console.log(err);
+	  } else{
+		res.json(billData);
+	  }
+    });
+});
+
+router.post('/create', function(req, res) {
+  var bill = {};
+  bill.billerName = req.body.billerName,
+  bill.userMailId = req.body.userMailId,
+  bill.billingAmount = req.body.billingAmount,
+  bill.billingDate = req.body.billingDate,
+  bill.dueDate = req.body.dueDate;
+  bill.paidDate = req.body.paidDate;
+  bill.billPaid = req.body.billPaid;
+  console.log(req.body);
+  BillApi.saveBill(bill, function(err) {
+	 
+  	res.json(bill);
+  });
+});
+
+router.get('/getBillerNames', function(req, res) {
+  BillerApi.getAllBillerNames(function(err, billerData) {
+	  if (err)
+	  {
+		  console.log(err);
+	  } else{
+      console.log(billerData);
+		res.json(billerData);
+	  }
+    });
+});
+
+router.get('/getUsers', function(req, res) {
+  UserApi.getUsers(function(err, emailData) {
+      if (err)
+      {
+          console.log(err);
+      } else{
+      console.log(emailData);
+        res.json(emailData);
+      }
+    });
+});
+
+router.put('/edit/:id', function(req, res) {
+  var updatedBill = {};
+  updatedBill.billingAmount = req.body.billingAmount,
+  updatedBill.billingDate = req.body.billingDate,
+  updatedBill.dueDate = req.body.dueDate;
+  BillApi.updateBillById(req.params.id, updatedBill, function(err) {
+	 res.json(updatedBill);
+  });
+});
+
+router.put('/editBillPayment/:id', function(req, res) {
+  BillApi.updateBillPaymentById(req.params.id, req.body.billPaid, req.body.paidDate, function(err){
+    res.json(null);
+  });
+});
+
+router.delete('/delete/:id', function(req, res) {
+  BillApi.deleteBillById(req.params.id, function(err) {
+	  if(err){
+		  console.log(err);
+	  }else{
+		  res.json(null);
+	  }
+  });    
+  
+});
+
+router.get('/user/get/:userId', function(req, res) {
+  BillApi.getAllBillsForUser(req.params.userId, function(err, billsOfUser) {
+	  if (err)
+	  {
+		  console.log(err);
+	  } else{
+		res.json(billsOfUser);
+	  }
+    });
+});
+
+router.get('/user/get/billsHistory/:userId', function(req, res) {
+  BillApi.getAllBillsForUserHistory(req.params.userId, function(err, billsHistoryOfUser) {
+	  if (err)
+	  {
+		  console.log(err);
+	  } else{
+		res.json(billsHistoryOfUser);
+	  }
+    });
+});
+
+module.exports = router;

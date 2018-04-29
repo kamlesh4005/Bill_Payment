@@ -1,0 +1,42 @@
+   
+<!--<tr>
+                        <td>
+                        <div   *ngIf="('billerName' | fieldFilter: customizeFilter) && optionArr['billerName']">
+                            {{biller.billerName}}
+                        </div>
+                        </td>
+                        <td>
+                        <div  
+                        *ngIf="('billerDescription' | fieldFilter: customizeFilter) && optionArr['billerDescription']">
+                        {{biller.billerDescription}}
+                        </div>
+                        </td>
+                        <td>
+                                <a (click)="onEdit()">Edit</a>
+                            </td> 
+                        <td>
+                                <a (click)="onDelete()">Delete</a>
+                            
+                        </td>
+                        </tr>
+                    -->
+
+<div class="row">
+        
+        <div class="card-panel blue-grey darken-1">
+                   
+        <div class="card-content white-text" *ngIf="optionArr['billerName']">
+            <span class="card-title">{{biller.billerName}}</span>
+        </div>
+        <div class="card-content white-text" *ngIf="optionArr['billerDescription']">
+                
+            <p>{{biller.billerDescription}}</p>
+            
+        </div>
+        <div class="card-action" *ngIf="(optionArr['billerDescription'] || optionArr['billerName'])">
+            <a (click)="onEdit(biller.id)">Edit</a>
+            <a (click)="onDelete(biller.id)">Delete</a>
+        </div>
+        </div>
+        
+</div>

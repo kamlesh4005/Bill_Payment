@@ -1,0 +1,105 @@
+<div class="w3-col w3-container m3"></div>
+<div class="w3-container w3-col m4" id="mainBill">
+        
+    <div class="w3-container w3-center w3-lobster" id="billTitle">
+            <div class="w3-padding-48"></div>
+            <header>
+            <p class="w3-xlarge">Generate a Bill</p>
+            </header>
+    </div>
+    
+    <form   [formGroup]="addBillForm" (ngSubmit)="onSubmit()" id="billForm" >
+       <br>
+       <div class="form-group">
+            <label for="billerName">Biller Name</label>
+            <p>
+            <select name="billerName" class="w3-dropdown-hover" 
+            formControlName="billerName"
+            [ngModel]="bill?.billerName"  required>
+                <option *ngFor="let billerName of billerNames" [value]="billerName">
+                  {{billerName}}
+                </option>
+              </select>
+            </p>
+              <div class="alert alert-danger" *ngIf="addBillForm.controls['billerName'].errors && addBillForm.controls['billerName'].touched">
+                    <div [hidden]="!addBillForm.controls['billerName'].errors.required">Biller Name is required.</div>
+                </div>
+    
+            </div>
+            <br>
+			<div class="form-group">
+            <label for="userMailId">User Mail Id</label>
+            <p>
+            <select name="userMailId" class="w3-dropdown-hover" 
+            formControlName="userMailId"
+            [ngModel]="bill?.userMailId" required>
+                <option *ngFor="let userMailId of userMailIds" [value]="userMailId">
+                  {{userMailId}}
+                </option>
+              </select>
+            </p>
+              <div class="alert alert-danger" *ngIf="addBillForm.controls['userMailId'].errors && addBillForm.controls['userMailId'].touched">
+                <div [hidden]="!addBillForm.controls['userMailId'].errors.required">User EMail ID is required.</div>
+            </div>
+
+            </div>
+            <br>
+			<div class="form-group">
+            <label for="billingAmount">Billing Amount</label>
+            <p>
+            <input 
+                type="number" 
+                id="billingAmount" 
+                name="billingAmount" 
+                class="w3-input w3-hover-sand"
+                formControlName="billingAmount" min="1" 
+                [ngModel]="bill?.billingAmount" placeholder="BillingAmount" required/>
+            </p>    
+            <div class="alert alert-danger" *ngIf="addBillForm.controls['billingAmount'].errors && (addBillForm.controls['billingAmount'].touched || addBillForm.controls['billingAmount'].dirty)">
+                <div [hidden]="!addBillForm.controls['billingAmount'].errors.required">Billing Amount is required.</div>
+                <div [hidden]="!addBillForm.controls['billingAmount'].errors">Billing Amount is invalid. It must be greater than zero.</div>                
+            </div>
+
+             </div>
+             <br>
+			 <div class="form-group">
+            <label for="billingDate">Billing Date</label>
+            <p>
+            <input 
+                type="date" 
+                id="billingDate" 
+                name="billingDate" 
+                class="w3-input w3-hover-sand"  
+                formControlName="billingDate"  
+                [ngModel]="bill?.billingDate" required/>
+            </p>    
+            <div class="alert alert-danger" *ngIf="addBillForm.controls['billingDate'].errors && 
+                addBillForm.controls['billingDate'].touched">
+                <div [hidden]="!addBillForm.controls['billingDate'].errors.required">Billing Date is required.</div>
+                
+            </div>
+            </div>
+            <br>
+			<div class="form-group">	
+            <label for="dueDate">Due Date</label>
+            <p>
+            <input 
+                type="date" 
+                id="dueDate" 
+                name="dueDate" 
+                class="w3-input w3-hover-sand"
+                formControlName="dueDate" min="todayDate" 
+                [ngModel]="bill?.dueDate" required/>
+            </p>
+            <div class="alert alert-danger" *ngIf="addBillForm.controls['dueDate'].errors && addBillForm.controls['dueDate'].touched">
+                <div [hidden]="!addBillForm.controls['dueDate'].errors.required">Due Date is required.</div>
+            </div>            
+            </div>
+            <br>
+        <p>
+        <button class="w3-btn w3-metro-darken" type="submit" [disabled]="!addBillForm.valid">Save</button>
+        
+        <button class="w3-btn w3-metro-darken" type="reset">Reset</button>
+        </p>
+    </form>
+</div>

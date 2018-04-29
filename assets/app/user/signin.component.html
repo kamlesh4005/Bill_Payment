@@ -1,0 +1,104 @@
+
+<!--<div class="w3-row-padding w3-col m7 col-md-offset-2">
+        <div class="w3-padding-64"></div>
+        <div class="center pagetitle">
+                Sign in with Registered Account
+        </div>
+
+    <form  class="w3-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <br>
+        <div>
+            
+            <label>Email</label>
+            <input
+                type="email"
+                id="email"
+                class="w3-input w3-hover-yellow"
+                formControlName="email"
+                required
+                >
+
+            <div class="alert alert-danger" *ngIf="myForm.controls['email'].errors && myForm.controls['email'].touched">
+                <div [hidden]="!myForm.controls['email'].errors.required">Email is required.</div>
+                <div [hidden]="!myForm.controls['email'].errors.pattern">Email is invalid.</div>
+            </div>
+        
+        </div>
+        <br>
+        <div>
+            
+            <label>Password</label>
+            <input
+                type="password"
+                id="password"
+                class="w3-input w3-hover-yellow"
+                formControlName="password"
+                required
+                    >
+
+            <div class="alert alert-danger" *ngIf="myForm.controls['password'].errors && myForm.controls['password'].touched">
+                <div [hidden]="!myForm.controls['password'].errors.required">Password is required.</div>
+            </div>
+        </div>
+        <br>
+        <button
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="!myForm.valid">Submit</button>
+        
+    </form>
+</div>-->
+<div class="w3-card w3-display-middle  w3-round-xxlarge" >
+        <div class="w3-container w3-lobster">
+                <p class="w3-large">
+                  Sign in with Registered Account
+                </p>
+        </div>
+
+    <form class="w3-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <br>
+        <div class="form-group">
+            <p>
+            <input
+                type="email"
+                id="email"
+                class="w3-input w3-hover-sand"
+                formControlName="email"
+                placeholder="Email" 
+                required                
+                >
+            </p>
+            <label for="email">Email</label> 
+            <div class="alert alert-danger" *ngIf="myForm.controls['email'].errors && myForm.controls['email'].touched">
+                <div [hidden]="!myForm.controls['email'].errors.required">Email is required.</div>
+                <div [hidden]="!myForm.controls['email'].errors.pattern">Email is invalid.</div>
+            </div>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <p>
+            <input
+                type="password"
+                id="password"
+                class="w3-input w3-hover-sand"
+                formControlName="password" 
+                placeholder="Password" required
+             >
+            </p>
+            <label for="password">Password</label>
+            <div class="alert alert-danger" *ngIf="myForm.controls['password'].errors && myForm.controls['password'].touched">
+                <div [hidden]="!myForm.controls['password'].errors.required">Password is required.</div>
+            </div>
+            
+        </div>
+        <br>
+        <p>
+        <button
+                class="w3-btn w3-metro-darken"
+                type="submit"
+                [disabled]="!myForm.valid">Submit</button>
+        </p>
+        <br>
+    </form>
+</div>

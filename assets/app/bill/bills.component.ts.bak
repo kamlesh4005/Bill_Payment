@@ -1,0 +1,78 @@
+import { Component, Input } from "@angular/core";
+import { Bill } from "./bill.model";
+import { BillService } from "./bill.service";
+import { Router} from '@angular/router';
+import { UserService } from "../user/user.service";
+
+@Component({
+    selector: 'all-bill',
+    templateUrl: './bills.component.html'
+})
+
+export class BillsComponent{
+    @Input() bill: Bill;
+    
+        constructor(private billService:BillService, private userService: UserService, private router: Router){}
+    
+        ngOnInit(){
+            if(!this.userService.isLoggedIn() && (this.userService.isAdmin() 
+                    || this.userService.isUser())){
+                console.log("Invalid Authentication");
+                localStorage.clear();
+                this.router.navigateByUrl('/auth/signin');
+            }
+        }
+
+        onEdit(){
+            if(this.userService.isLoggedIn() && this.userService.isAdmin()){
+                //console.log("Invalid Authentication");
+                //localStorage.clear();
+                //this.router.navigateByUrl('/auth/signin');
+                this.billService.getBillById(this.bill.id).subscribe(
+                    (result: Bill) => (result != null && result.billPaid.indexOf("no")!= -1) ?  
+                    this.router.navigateByUrl('/bills/addbill/'+result.id)
+                    : alert('Bill record updation is not allowed'),
+                    err => console.log(err)
+               );
+            } 
+
+            
+        }
+    
+        onDelete(){
+            if(this.userService.isLoggedIn() && this.userService.isAdmin()){
+                this.billService.getBillById(this.bill.id).subscribe(
+                    (result: Bill) => (result != null && result.billPaid.indexOf("no")!= -1) ?  
+                    this.billService.deleteBill(this.bill.id)
+                    .subscribe(
+                        result => this.router.navigateByUrl('/bills/refreshbills'),
+                        err => console.log(err)
+                    ) 
+                    : alert('Bill record deletion is not allowed'),
+                    err => console.log(err)
+            );
+            }
+            
+        }
+
+        onMakePayment(){
+            if(this.userService.isLoggedIn() && this.userService.isUser()){
+                this.bill.billPaid = 'yes'; 
+                this.bill.paidDate = new Date();
+                console.log('makepayment');
+                console.log(this.bill.userMailId);
+                this.billService.editBillPayment(this.bill).subscribe(
+                    result => this.router.navigateByUrl('/bills/refreshbills/'+this.bill.userMailId),
+                        err => console.log(err)
+                    )                    
+            }            
+        }
+
+        isAdmin(){
+            return this.userService.isAdmin();            
+        }
+
+        isUser(){
+            return this.userService.isUser();            
+        }
+}

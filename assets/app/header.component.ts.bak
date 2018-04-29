@@ -1,0 +1,40 @@
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { UserService } from "./user/user.service";
+
+@Component({
+    selector: 'app-header',
+    template: `
+    <header class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div align="right">
+                <button class="btn btn-danger" (click)="onLogout()" *ngIf="isLoggedIn()">Logout</button>
+            </div>
+        </div>
+        <nav class="col-md-8 col-md-offset-2">
+            <ul class="nav nav-pills">
+                <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/bills']">Bill</a></li>
+                <li routerLinkActive="active" *ngIf="isLoggedIn() && isAdmin()"><a [routerLink]="['/billers']">Biller</a></li>
+                <li routerLinkActive="active" *ngIf="!isLoggedIn()"><a [routerLink]="['/auth']">Authentication</a></li>
+            </ul>
+        </nav>
+    </header>
+    `
+})
+
+export class HeaderComponent{
+    constructor(private userService: UserService, private router: Router){}
+
+    isLoggedIn(){
+        return this.userService.isLoggedIn();
+    }
+
+    isAdmin(){
+        return this.userService.isAdmin();
+    }
+
+    onLogout(){
+        this.userService.logout();
+        this.router.navigateByUrl('/auth/signin');
+    }
+}

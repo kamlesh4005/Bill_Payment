@@ -1,0 +1,77 @@
+import { Component, OnInit } from "@angular/core";
+import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { BillerService } from "./biller.service";
+import { Biller } from "./biller.model";
+import { UserService } from "../user/user.service";
+
+@Component({
+    selector: 'add-biller',
+    templateUrl: './addbiller.component.html'
+})
+
+export class AddBillerComponent implements OnInit{
+    addBillerForm: FormGroup;
+    myid:string;
+    billers: Biller[];
+    biller: Biller;
+    
+    constructor(private billerService:BillerService, private userService: UserService, private route: ActivatedRoute, private router: Router){}
+
+    ngOnInit() {
+        if(!this.userService.isLoggedIn() || !this.userService.isAdmin()){
+            console.log("Invalid Authentication");
+            sessionStorage.clear();
+            this.router.navigateByUrl('/auth/signin');
+        }
+
+        this.myid = this.route.snapshot.params['id'];
+        if(this.myid != undefined){
+            this.billerService.getBillerById(this.myid)
+            .subscribe(
+                (biller:Biller) => {
+                    this.biller = biller;
+                    }
+                
+            );
+        }
+
+        
+
+        this.addBillerForm = new FormGroup({
+            billerName: new FormControl(null, Validators.required),
+            billerDescription: new FormControl(null,Validators.required),
+            id: new FormControl(null,null)
+        })
+    }
+
+    onSubmit(){
+        this.myid = this.route.snapshot.params['id'];
+        if(this.myid){
+            const biller = new Biller(this.addBillerForm.value.billerName, this.addBillerForm.value.billerDescription, this.myid);
+            this.billerService.getBillerById(this.myid)
+            .subscribe(
+                (biller:Biller) => {
+                    this.biller = biller;
+                    }
+                
+            );
+            this.billerService.editBiller(biller)
+                .subscribe(
+                    result => this.router.navigateByUrl('/billers/allbillers'),
+                    err => console.log(err) 
+                );
+            this.biller = null;
+        } else {
+            const biller = new Biller(this.addBillerForm.value.billerName,this.addBillerForm.value.billerDescription);
+            this.billerService.addBiller(biller)
+                .subscribe(
+                    data => this.router.navigateByUrl('/billers/allbillers'),
+                    error => console.log(error)
+                );
+        }
+        this.addBillerForm.reset();
+        
+    }
+}

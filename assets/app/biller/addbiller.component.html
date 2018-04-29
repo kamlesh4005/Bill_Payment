@@ -1,0 +1,48 @@
+<div class="w3-card w3-round">
+        <div class="center w3-container w3-metro-dark-red w3-lobster">
+                <p class="w3-xlarge">Billers</p>
+        </div>
+    <form class="w3-container" [formGroup]="addBillerForm" (ngSubmit)="onSubmit()" >
+        <br>
+        <div class="form-group">
+            <label for="billerName">Biller Name</label>
+            <p>
+            <input 
+                type="text" 
+                id="billerName" 
+                name="billerName" 
+                class="w3-input w3-hover-sand" 
+                billerNameValidator 
+                formControlName="billerName"
+                [ngModel]="biller?.billerName"
+                required 
+                />
+            </p>
+            <div class="alert alert-danger" *ngIf="addBillerForm.controls['billerName'].errors && addBillerForm.controls['billerName'].touched">
+                <div [hidden]="!addBillerForm.controls['billerName'].errors.required">Biller Name is required.</div>
+                <div [hidden]="!addBillerForm.controls['billerName'].errors.billerNamevalidator">Biller Name must be unique.</div>
+            </div>
+            <br>
+            <label for="billerDescription">Biller Description</label>
+            <p>
+            <textarea 
+                type="text" 
+                id="billerDescription" 
+                name="billerDescription" 
+                class="w3-input w3-hover-sand"
+                formControlName="billerDescription"
+                [ngModel]="biller?.billerDescription" required></textarea>
+            </p>
+            <div class="alert alert-danger" *ngIf="addBillerForm.controls['billerDescription'].errors && addBillerForm.controls['billerDescription'].touched">
+                <div [hidden]="!addBillerForm.controls['billerDescription'].errors.required">Biller Description is required.</div>
+            </div>
+        </div>
+        <br>
+        <p>
+        <button class="w3-btn w3-metro-darken" type="submit" [disabled]="!addBillerForm.valid">Save</button>
+        </p>
+        <p>
+        <button class="w3-btn w3-metro-darken" type="reset">Reset</button>
+        </p>
+    </form>
+</div>

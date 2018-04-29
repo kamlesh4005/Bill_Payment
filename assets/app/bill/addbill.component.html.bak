@@ -1,0 +1,62 @@
+<div class="col-md-8 col-md-offset-2">
+    
+    <form class="col s12" [formGroup]="addBillForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+        <b>Generate a Bill</b>
+        
+        </div>
+         <div class="form-group">
+            <label for="billerName">Biller Name</label>
+            <select name="billerName" class="browser-default" 
+            formControlName="billerName"
+            [ngModel]="bill?.billerName">
+                <option *ngFor="let billerName of billerNames" [value]="billerName">
+                  {{billerName}}
+                </option>
+              </select>
+            </div>
+			<div class="form-group">
+            <label for="userMailId">User Mail Id</label>
+            <select name="userMailId" class="form-control" 
+            formControlName="userMailId"
+            [ngModel]="bill?.userMailId">
+                <option *ngFor="let userMailId of userMailIds" [value]="userMailId">
+                  {{userMailId}}
+                </option>
+              </select>
+			</div>
+			<div class="form-group">
+            <label for="billingAmount">Billing Amount</label>
+            <input 
+                type="number" 
+                id="billingAmount" 
+                name="billingAmount" 
+                class="form-control"
+                formControlName="billingAmount"
+                [ngModel]="bill?.billingAmount" />
+			 </div>
+			 <div class="form-group">
+            <label for="billingDate">Billing Date</label>
+            <input 
+                type="text" 
+                id="billingDate" 
+                name="billingDate" 
+                class="datepicker_BillingDate"
+                formControlName="billingDate"
+                [ngModel]="bill?.billingDate" />
+			</div>
+			 <div class="form-group">	
+            <label for="dueDate">Due Date</label>
+            <input 
+                type="text" 
+                id="dueDate" 
+                name="dueDate" 
+                class="datepicker_DueDate"
+                formControlName="dueDate"
+                [ngModel]="bill?.dueDate" />
+
+            
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!addBillForm.valid">Save</button>
+    </form>
+</div>

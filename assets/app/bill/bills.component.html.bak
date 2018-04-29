@@ -1,0 +1,32 @@
+<article class="panel panel-default">
+    <div class="panel-body">
+        {{bill.billerName}}
+    </div>
+    <div>
+         {{bill.userMailId}}
+    </div>
+    <div>
+        {{bill.billingAmount}}
+   </div>
+   <div>
+        {{bill.billingDate}}
+    </div>
+    <div>
+        {{bill.dueDate}}
+    </div>
+    <div>
+        {{bill.paidDate}}
+    </div>
+    <div>
+        {{bill.billPaid}}
+    </div>
+    <div>
+            <a (click)="onEdit()" *ngIf="isAdmin()">Edit</a>
+            <a (click)="onDelete()" *ngIf="isAdmin()">Delete</a>
+    </div>
+
+    <div *ngIf="isUser()">
+        <a (click)="onMakePayment()">Make Payment</a>        
+    </div>
+    
+</article>

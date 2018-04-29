@@ -1,0 +1,54 @@
+<div class="w3-card-4">
+        <header class="w3-container w3-light-grey" *ngIf="optionArr['billerName']">
+                <h3>{{bill.billerName}}</h3>
+        </header>
+        <div class="w3-container w3-responsive">
+                <table class="w3-table-all">
+                    <tr *ngIf="optionArr['userEmailId']">
+                        <td width="35%">
+                            <b>User Mail Id </b>
+                        </td>
+                        <td>
+                            <p>: {{bill.userMailId}}</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="optionArr['billingAmount']">
+                        <td width="35%">
+                            <b>Billing Amount </b>
+                        </td>
+                        <td>
+                            <p>: {{bill.billingAmount}}</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="optionArr['billingDate']">
+                        <td width="35%">
+                            <b>Billing Date </b>
+                        </td>
+                        <td>
+                            <p>: {{bill.billingDate}}</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="optionArr['dueDate']">
+                        <td width="35%">
+                            <b>Due Date </b>
+                        </td>
+                        <td>
+                            <p>: {{bill.dueDate}}</p>
+                        </td>
+                    </tr>
+                    <!--<tr *ngIf="optionArr['billPaid']">
+                        <td width="35%">
+                            <b>Bill Paid </b>
+                        </td>
+                        <td>
+                            <p>: {{bill.billPaid}}</p>
+                        </td>
+                    </tr>-->
+                </table>
+        </div>
+        <p>             
+        <button class="w3-button w3-dark-grey" (click)="onEdit()" *ngIf="isAdmin()">Edit</button>
+        <button class="w3-button w3-dark-grey" (click)="onDelete()" *ngIf="isAdmin()">Delete</button>                          
+        <button class="w3-button w3-dark-grey" (click)="onMakePayment()" *ngIf="isUser()">Make Payment</button>
+        </p>
+</div>

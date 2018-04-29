@@ -1,0 +1,82 @@
+<div class="w3-padding-64 w3-col m7 col-md-offset-2">
+        <div class="w3-padding-16"></div>
+        <div class="center">
+        <b class="pagetitle">User Profiles</b>
+        </div>
+        
+        <div class="row" *ngIf='users && users.length'>
+        <label for="filterby">Filter by:</label>
+        <input type='text'  
+                [(ngModel)]='nameFilter' />
+        
+        <input type='checkbox' name='firstName' value='options[0]' id='firstName'   
+        [checked]='options.indexOf(options[0]) >= 0'
+               (change)='updateCheckedOptions(options[0], $event)' 
+               [ngModel]='options.indexOf(options[0]) >= 0' 
+                />
+        <label for='firstName'>First Name</label>
+    
+        <input type='checkbox' name='lastName' value='options[1]' id='lastName' 
+        [checked]='options.indexOf(options[1]) >= 0'
+               (change)='updateCheckedOptions(options[1], $event)' 
+               [ngModel]='options.indexOf(options[1]) >= 0' 
+                />    
+        <label for='lastName'>Last Name</label>
+    
+        <input type='checkbox' name='mobileNumber' value='options[2]' id='mobileNumber' 
+       [checked]='options.indexOf(options[2]) >= 0'
+               (change)='updateCheckedOptions(options[2], $event)' 
+               [ngModel]='options.indexOf(options[2]) >= 0' 
+                />    
+        <label for='mobileNumber'>Mobile Number</label>
+    
+        <input type='checkbox' name='email' value='options[3]' id='email' 
+        [checked]='options.indexOf(options[3]) >= 0'
+               (change)='updateCheckedOptions(options[3], $event)' 
+               [ngModel]='options.indexOf(options[3]) >= 0' 
+                />    
+        <label for='email'>Email</label>
+    
+        <div class="row" *ngFor='let user of users| userFilter: nameFilter'>
+                        
+                        <div class="card-panel blue-grey darken-1">
+                                    
+                        <div class="card-content white-text" *ngIf=" optionsMap[options[0]]">
+                            <span class="card-title">{{user.firstName}}</span>
+                        </div>
+                        <table>
+                                <tr *ngIf="optionsMap[options[1]]">
+                                        <td width="35%">
+                                            <b>Last Name</b>
+                                        </td>
+                                        <td>
+                                            <p>: {{user.lastName}}</p>
+                                        </td>
+                                </tr>
+                                <tr *ngIf="optionsMap[options[2]]">
+                                        <td width="35%">
+                                            <b>Mobile Number </b>
+                                        </td>
+                                        <td>
+                                            <p>: {{user.mobileNumber}}</p>
+                                        </td>
+                                </tr>
+                                <tr *ngIf="optionsMap[options[3]]">
+                                    <td width="35%">
+                                        <b>User Mail Id </b>
+                                    </td>
+                                    <td>
+                                        <p>: {{user.email}}</p>
+                                    </td>
+                                </tr>
+                        </table>
+                        </div>
+                        <div class="card-action">
+                                <a (click)="onEdit(user.email)">Edit</a>
+                                
+                        </div>
+        </div>
+        </div>
+</div>
+          
+                

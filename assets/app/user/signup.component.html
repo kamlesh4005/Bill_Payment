@@ -1,0 +1,109 @@
+<div class="w3-card w3-round">
+        <div class="w3-padding-64px"></div>
+        <div class="w3-container w3-metro-dark-red w3-lobster">
+                <p class="w3-xlarge">Create a User Account</p>
+        </div>
+    <br>
+    <form class="w3-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <br>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <p>
+            <input
+                    type="text"
+                    id="firstName"
+                    class="w3-input w3-hover-sand"
+                    formControlName="firstName" required>
+            </p>
+                <div class="alert alert-danger" *ngIf="myForm.controls['firstName'].errors && myForm.controls['firstName'].touched">
+                    <div [hidden]="!myForm.controls['firstName'].errors.required">FirstName is required.</div>
+                    <div [hidden]="!myForm.controls['firstName'].errors?.pattern">Only characters are allowed for first name.</div>
+                 </div>
+            
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <p>
+            <input
+                    type="text"
+                    id="lastName"
+                    class="w3-input w3-hover-sand"
+                    formControlName="lastName" required>
+            </p>    
+            <div class="alert alert-danger" *ngIf="myForm.controls['lastName'].errors && myForm.controls['lastName'].touched">
+                <div [hidden]="!myForm.controls['lastName'].errors.required">LastName is required.</div>
+                <div [hidden]="!myForm.controls['lastName'].errors?.pattern">Only characters are allowed for last name.</div>
+                <div [hidden]="!myForm.controls['lastName'].errors.uniqueValue">Both First name and Last name should not be same.</div>
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <p>
+            <input
+                    type="number"
+                    pattern="[789][0-9]{9}"
+                    id="mobileNumber"
+                    class="w3-input w3-hover-sand"
+                    formControlName="mobileNumber"
+                    minlength="10"
+                    required
+                    data-length="10"
+                    >
+            </p>
+            <div class="alert alert-danger" *ngIf="myForm.controls['mobileNumber'].errors && myForm.controls['mobileNumber'].touched">
+                <div [hidden]="!myForm.controls['mobileNumber'].errors.required">Mobile Number is required.</div>
+                <div [hidden]="!myForm.controls['mobileNumber'].errors">Mobile Number is invalid. (Should be 10 digits and Starts with 7,8,9)</div>
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="email">EMail</label>
+            <p>
+            <input
+                    type="email"
+                    id="email"
+                    class="w3-input w3-hover-sand"
+                    formControlName="email" required>
+            </p>
+            <div class="alert alert-danger" *ngIf="myForm.controls['email'].errors && myForm.controls['email'].touched">
+                <div [hidden]="!myForm.controls['email'].errors.required">Email is required.</div>
+                <div [hidden]="!myForm.controls['email'].errors.pattern">Email is invalid.</div>
+            </div>
+                
+
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <p>
+            <input
+                    type="password"
+                    id="password"
+                    class="w3-input w3-hover-sand"
+                    formControlName="password" minlength="8" required>
+            </p>    
+            <div class="alert alert-danger" *ngIf="myForm.controls['password'].errors && myForm.controls['password'].touched">
+                <div [hidden]="!myForm.controls['password'].errors.required">Password is required.</div>
+                <div [hidden]="!myForm.controls['password'].errors">Password must contain atleast 8 characters.</div>
+            </div>
+
+        </div>
+        <br>
+        <p>
+       <button
+                class="w3-btn w3-metro-darken"
+                type="submit"
+                [disabled]="!myForm.valid">Submit</button>
+        </p>
+        <p>
+        <button
+                class="w3-btn w3-metro-darken"
+                type="reset"
+                >Reset</button>
+        </p>
+    </form>
+</div>

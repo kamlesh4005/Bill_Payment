@@ -1,0 +1,50 @@
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../user/user.service";
+import { Router } from "@angular/router";
+
+@Component({
+    selector: 'app-bill',
+    template: `
+    <header class="row spacing">
+        <nav class="col-md-8 col-md-offset-2">
+            <ul class="nav nav-tabs">
+                <li routerLinkActive="active" *ngIf="isAdmin()"><a [routerLink]="['allbills']">All Bills</a></li>
+                <li routerLinkActive="active" *ngIf="isUser()"><a [routerLink]="['allbills',{userId:userId}]">All Bills</a></li>
+                <li routerLinkActive="active" *ngIf="isAdmin()"><a [routerLink]="['addbill']">Add Bill</a></li>
+                <li routerLinkActive="active" *ngIf="isUser()"><a [routerLink]="['viewbillhistory']">View Bill Payment History</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="row spacing">
+        <router-outlet></router-outlet>
+    </div>
+    `
+})
+
+export class BillComponent implements OnInit{
+
+    userId: string;
+
+    constructor(private userService: UserService, private router: Router){}
+
+    ngOnInit(){
+        if(!this.userService.isLoggedIn() &&(!this.userService.isAdmin() 
+            || !this.userService.isUser())){
+            console.log("Invalid Authentication");
+            localStorage.clear();
+            this.router.navigateByUrl('/auth/signin');
+        }
+        if(this.userService.isUser()){
+            this.userId = localStorage.getItem("userId");
+        }
+    }
+
+    isAdmin(){
+        return this.userService.isAdmin();            
+    }
+
+    isUser(){
+        return this.userService.isUser();            
+    }
+   
+}

@@ -1,0 +1,59 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  cursor: pointer;
+}
+
+nav{
+  color: purple;
+}
+
+a:hover,
+a:active {
+  color: #00B7FF;
+  text-decoration: underline;
+}
+
+a.danger {
+  color: red;
+}
+
+.spacing {
+  margin-bottom: 20px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.center {
+  margin: 0
+  auto; 
+}
+  
+.pagetitle {
+  font-family: futura;
+  font-style: 
+  italic;
+  width:100%;
+  margin: 0
+  auto;
+  text-align: 
+  center;
+  color:#ffffff;
+  font-size:20px;
+  font-weight: 
+  bold;
+}
+  
+.applicationtitle {
+  font-family: Bell MT;
+  color: #ffffff;
+  font-size:20px;
+  font-weight: 
+  bold;
+}
+

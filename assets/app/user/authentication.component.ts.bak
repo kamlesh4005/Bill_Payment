@@ -1,0 +1,32 @@
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "./user.service";
+import { Router } from "@angular/router";
+
+@Component({
+    selector: 'app-authentication',
+    template: 
+    `
+    <header class="row spacing">
+        <nav class="col-md-8 col-md-offset-2">
+            <ul class="nav nav-tabs">
+                <li routerLinkActive="active"><a [routerLink]="['signup']">Signup</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['signin']">Signin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="row spacing">
+        <router-outlet></router-outlet>
+    </div>
+    `
+})
+
+export class AuthenticationComponent implements OnInit{
+    constructor(private userService: UserService, private router: Router){}
+
+    ngOnInit(){
+        if(this.userService.isLoggedIn()){
+            console.log('User already logged in');
+            this.router.navigateByUrl('/bills/allbills');
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<div class="w3-card w3-round">
+        <div class="center w3-container w3-metro-dark-red w3-lobster">
+                <p class="w3-xlarge">Chart for Highest Bill Payment</p>
+       </div>
+
+<form class="w3-container" [formGroup]="chartForm" (ngSubmit)="onSubmit()" >
+       
+      <br>
+      <div class="form-group">
+          <label for="noOfUsers">Number of Users:</label>
+          <p>
+          <input 
+              type="number" 
+              id="noOfUsers" 
+              name="noOfUsers" 
+              class="w3-input w3-hover-sand" 
+              formControlName="noOfUsers"
+              [ngModel]="noOfUsers" required
+              />
+          </p>
+          <div class="alert alert-danger" *ngIf="chartForm.controls['noOfUsers'].errors && chartForm.controls['noOfUsers'].touched">
+                <div [hidden]="!chartForm.controls['noOfUsers'].errors.required">Number of users is required to generate chart.</div>
+            </div>
+     </div>
+     <br>
+     <p>
+      <button class="btn btn-primary" type="submit" [disabled]="!chartForm.valid">Submit</button>
+    </p>
+    <p>
+      <button class="btn btn-primary" type="reset">Reset</button>
+    </p>
+  </form>
+  <br>
+  
+<div *ngIf="chart">
+        <p>  <canvas id="canvas">{{ chart }}</canvas> </p>
+</div>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="col-md-8 col-md-offset-2">
+  <form class="col s12" [formGroup]="chartForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+                <b>Chart for Highest Bill Payment</b>
+                
+                </div>
+                <div></div>
+      <div class="form-group">
+          <label for="noOfUsers">Number of Users:</label>
+          <input 
+              type="text" 
+              id="noOfUsers" 
+              name="noOfUsers" 
+              class="form-control" 
+              formControlName="noOfUsers"
+              [ngModel]="noOfUsers"
+              />
+     </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!chartForm.valid">Submit</button>
+  </form>
+<div *ngIf="chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>
+</div>

@@ -1,0 +1,30 @@
+<article class="panel panel-default">
+    <div class="panel-body">
+        {{bill.billerName}}
+    </div>
+    <div>
+        User Mail ID:
+         {{bill.userMailId}}
+    </div>
+    <div>
+        Billing Amount:
+        {{bill.billingAmount}}
+   </div>
+   <div>
+       Billing Date:
+        {{bill.billingDate}}
+    </div>
+    <div>
+        Due Date:
+        {{bill.dueDate}}
+    </div>
+    <div>
+        Paid Date:
+        {{bill.paidDate}}
+    </div>
+    <div>
+        Bill Paid:
+        {{bill.billPaid}}
+    </div>
+    
+</article>
